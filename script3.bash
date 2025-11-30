@@ -1,0 +1,2 @@
+netlify env:set SUPABASE_URL your-url
+netlify env:set HAKU_TOKEN_ADDRESS 0xf21ec85ce0b05640436ffd7e8fabba5d82eb0774

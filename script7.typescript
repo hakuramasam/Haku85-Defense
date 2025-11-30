@@ -1,0 +1,91 @@
+import { serve } from 'https://deno.land/std@0.168.0/http/server.ts'
+import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
+
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+}
+
+serve(async (req) => {
+  // Handle CORS
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders })
+  }
+
+  try {
+    const supabaseClient = createClient(
+      Deno.env.get('SUPABASE_URL') ?? '',
+      Deno.env.get('SUPABASE_ANON_KEY') ?? ''
+    )
+
+    const url = new URL(req.url)
+    const pathParts = url.pathname.split('/').filter(Boolean)
+
+    // GET /game-api/:walletAddress - Get player stats
+    if (req.method === 'GET' && pathParts.length >= 2) {
+      const walletAddress = pathParts[pathParts.length - 1]
+
+      const { data, error } = await supabaseClient
+        .from('game_scores')
+        .select('*')
+        .eq('wallet_address', walletAddress)
+        .order('created_at', { ascending: false })
+
+      if (error) throw error
+
+      const stats = {
+        wallet_address: walletAddress,
+        total_games: data.length,
+        best_score: data.length > 0 ? Math.max(...data.map(g => g.score)) : 0,
+        best_wave: data.length > 0 ? Math.max(...data.map(g => g.wave)) : 0,
+        average_score: data.length > 0 ? Math.round(data.reduce((sum, g) => sum + g.score, 0) / data.length) : 0,
+        last_played: data.length > 0 ? data[0].created_at : null
+      }
+
+      return new Response(
+        JSON.stringify({ success: true, data: stats }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    // POST /game-api - Submit score
+    if (req.method === 'POST') {
+      const { walletAddress, score, wave } = await req.json()
+
+      if (!walletAddress || score === undefined || wave === undefined) {
+        return new Response(
+          JSON.stringify({ success: false, error: 'Missing required fields' }),
+          { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+        )
+      }
+
+      const { data, error } = await supabaseClient
+        .from('game_scores')
+        .insert([{
+          wallet_address: walletAddress,
+          score: score,
+          wave: wave
+        }])
+        .select()
+        .single()
+
+      if (error) throw error
+
+      return new Response(
+        JSON.stringify({ success: true, data }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      )
+    }
+
+    return new Response(
+      JSON.stringify({ success: false, error: 'Method not allowed' }),
+      { status: 405, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    )
+
+  } catch (error) {
+    return new Response(
+      JSON.stringify({ success: false, error: error.message }),
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+    )
+  }
+})
