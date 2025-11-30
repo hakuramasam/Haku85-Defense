@@ -1,0 +1,1 @@
+ipfs pin add YOUR_CID

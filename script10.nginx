@@ -1,0 +1,10 @@
+server {
+    listen 80;
+    server_name yourdomain.com;
+    root /usr/share/nginx/html/haku-tower-defense;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+}

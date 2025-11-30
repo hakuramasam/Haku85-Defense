@@ -1,0 +1,10 @@
+<VirtualHost *:80>
+    ServerName yourdomain.com
+    DocumentRoot /var/www/html/haku-tower-defense
+    
+    <Directory /var/www/html/haku-tower-defense>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
