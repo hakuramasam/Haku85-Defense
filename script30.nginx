@@ -1,5 +1,0 @@
-# In your server config
-location ~* \.(webp|svg|js|css)$ {
-    expires 1y;
-    add_header Cache-Control "public, immutable";
-}

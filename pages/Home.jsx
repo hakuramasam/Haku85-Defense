@@ -94,7 +94,7 @@ function Home() {
     if (!address) return;
     
     try {
-      const response = await fetch(`${API_BASE_URL}/game-api/${address}`);
+      const response = await fetch(`${API_BASE_URL}/player-stats/${address}`);
       const result = await response.json();
       
       if (result.success && result.data) {
@@ -107,7 +107,7 @@ function Home() {
 
   const saveGameScore = async (score, wave, walletAddress) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/game-api`, {
+      const response = await fetch(`${API_BASE_URL}/game-scores`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -123,11 +123,7 @@ function Home() {
       
       if (result.success) {
         console.log('Score saved successfully:', result.data);
-        await loadPlayerStats();
-        
-        if (window.dispatchEvent) {
-          window.dispatchEvent(new CustomEvent('scoreUpdated'));
-        }
+        loadPlayerStats();
       } else {
         console.error('Failed to save score:', result);
       }

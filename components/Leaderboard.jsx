@@ -10,16 +10,7 @@ function Leaderboard() {
   useEffect(() => {
     loadLeaderboard();
     const interval = setInterval(loadLeaderboard, 60000);
-    
-    const handleScoreUpdate = () => {
-      loadLeaderboard();
-    };
-    window.addEventListener('scoreUpdated', handleScoreUpdate);
-    
-    return () => {
-      clearInterval(interval);
-      window.removeEventListener('scoreUpdated', handleScoreUpdate);
-    };
+    return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
@@ -46,7 +37,10 @@ function Leaderboard() {
       const result = await response.json();
       
       if (result.success && result.data) {
-        setLeaderboard(result.data);
+        const sorted = result.data
+          .sort((a, b) => b.score - a.score)
+          .slice(0, 10);
+        setLeaderboard(sorted);
       }
     } catch (error) {
       console.error('Error loading leaderboard:', error);
@@ -95,7 +89,7 @@ function Leaderboard() {
         ) : (
           leaderboard.map((entry, index) => (
             <div
-              key={entry.id || `${entry.wallet_address}-${index}`}
+              key={entry.wallet_address + entry.created_at}
               className={`flex items-center justify-between p-4 rounded-lg transition-all duration-300 ${
                 index === 0
                   ? 'bg-gradient-to-r from-yellow-500/20 to-orange-500/20 border-2 border-yellow-500/50'
