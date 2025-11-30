@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <title>HAKU Tower Defense</title>
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <script type="importmap" async>
+      {
+        "imports": {
+          "react": "https://esm.sh/react",
+          "react-dom/client": "https://esm.sh/react-dom/client",
+          "react-router": "https://esm.sh/react-router",
+          "wagmi": "https://esm.sh/wagmi",
+          "wagmi/actions": "https://esm.sh/wagmi/actions",
+          "wagmi/chains": "https://esm.sh/wagmi/chains",
+          "wagmi/connectors": "https://esm.sh/wagmi/connectors",
+          "viem": "https://esm.sh/viem",
+          "@tanstack/react-query": "https://esm.sh/@tanstack/react-query"
+        }
+      }
+    </script>
+    <script
+      type="text/babel"
+      data-type="module"
+      src="components/Web3Provider.jsx"
+    ></script>
+    <script
+      type="text/babel"
+      data-type="module"
+      src="components/Leaderboard.jsx"
+    ></script>
+    <script type="text/babel" data-type="module" src="pages/Home.jsx"></script>
+    <script type="text/babel" data-type="module" src="app.jsx"></script>
+  </head>
+  <body>
+    <div id="renderDiv"></div>
+  </body>
+</html>

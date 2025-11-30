@@ -1,0 +1,38 @@
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 10px 0 rgba(174, 117, 251, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 25px 5px rgba(190, 14, 255, 0.6);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+body {
+  background-color: #141616;
+  color: white;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.glass-morphism {
+  backdrop-filter: blur(10px);
+  background: rgba(40, 40, 40, 0.2);
+  border: 1px solid rgba(174, 117, 251, 0.3);
+  box-shadow: 0 0 15px 0 rgba(174, 117, 251, 0.2);
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s infinite;
+}
