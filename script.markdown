@@ -2,8 +2,6 @@
 
 A blockchain-integrated tower defense game built with React, Phaser, and Web3. Players stake $HAKU85 tokens to compete for weekly rewards on the leaderboard.
 
-🎮 **[Play Now](https://YOUR_USERNAME.github.io/haku-tower-defense/)**
-
 ![HAKU Tower Defense](https://img.shields.io/badge/Game-Tower%20Defense-purple)
 ![Blockchain](https://img.shields.io/badge/Chain-Base-blue)
 ![Token](https://img.shields.io/badge/Token-HAKU85-orange)
@@ -28,30 +26,16 @@ A blockchain-integrated tower defense game built with React, Phaser, and Web3. P
 - **Top 10 Rankings**: See the best players and their scores
 - **Player Stats**: Track your personal best, total games, and achievements
 
-## 🚀 Deployment
+## 🚀 Quick Start
 
-This app is deployed on **GitHub Pages** and can be accessed at:
-**https://YOUR_USERNAME.github.io/haku-tower-defense/**
+### Prerequisites
+- Modern web browser (Chrome, Firefox, Edge, Brave)
+- Web3 wallet (MetaMask recommended)
+- $HAKU85 tokens on Base network
 
-### Deploy Your Own Instance
+### Installation
 
-1. **Fork this repository**
-2. **Enable GitHub Pages**:
-   - Go to Settings → Pages
-   - Source: Deploy from a branch
-   - Branch: `main` / `(root)`
-   - Click Save
-3. **Wait 1-2 minutes** for deployment
-4. **Access your game** at `https://YOUR_USERNAME.github.io/haku-tower-defense/`
-
-### Alternative Deployment Options
-
-#### Vercel
+1. **Clone the repository**
 ```bash
-# Install Vercel CLI
-npm install -g vercel
-
-# Deploy
-vercel
-
-# Follow prompts
+git clone https://github.com/YOUR_USERNAME/haku-tower-defense.git
+cd haku-tower-defense

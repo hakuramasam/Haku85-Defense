@@ -1,5 +1,1 @@
-# Lighthouse score
-npx lighthouse https://your-deployment-url.com
-
-# Load time
-curl -w "@curl-format.txt" -o /dev/null -s https://your-deployment-url.com
+python -m http.server 8000
